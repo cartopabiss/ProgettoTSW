@@ -1,0 +1,72 @@
+credenziali: "root", "Lamiapass123"
+
+CREATE SCHEMA Negozio;
+USE Negozio;
+
+CREATE TABLE Utente (
+    id_utente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    indirizzo VARCHAR(150) NOT NULL,
+    citta VARCHAR(50) NOT NULL,
+    cap VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE Admin (
+    id_admin INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Prodotto (
+    id_prodotto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descrizione TEXT,
+    prezzo DECIMAL(10,2) NOT NULL,
+    categoria ENUM('CAPPELLO','CALZINO','BUNDLE') NOT NULL,
+    immagine VARCHAR(255),
+    quantita_magazzino INT NOT NULL DEFAULT 0,
+    attivo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE Abbinamento (
+    id_abbinamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_prodotto1 INT NOT NULL,
+    id_prodotto2 INT NOT NULL,
+    UNIQUE(id_prodotto1, id_prodotto2),
+    FOREIGN KEY(id_prodotto1) REFERENCES Prodotto(id_prodotto),
+    FOREIGN KEY(id_prodotto2) REFERENCES Prodotto(id_prodotto)
+);
+
+CREATE TABLE BundleProdotto (
+    id_bundle INT NOT NULL,
+    id_prodotto INT NOT NULL,
+    quantita INT NOT NULL DEFAULT 1,
+    PRIMARY KEY(id_bundle, id_prodotto),
+    FOREIGN KEY(id_bundle) REFERENCES Prodotto(id_prodotto),
+    FOREIGN KEY(id_prodotto) REFERENCES Prodotto(id_prodotto)
+);
+
+CREATE TABLE Ordine (
+    id_ordine INT AUTO_INCREMENT PRIMARY KEY,
+    id_utente INT NOT NULL,
+    data_ordine TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    totale DECIMAL(10,2) NOT NULL,
+    indirizzo_spedizione VARCHAR(255) NOT NULL,
+    metodo_pagamento VARCHAR(50) NOT NULL,
+    stato ENUM('IN_ELABORAZIONE','SPEDITO','CONSEGNATO') NOT NULL DEFAULT 'IN_ELABORAZIONE',
+    FOREIGN KEY(id_utente) REFERENCES Utente(id_utente)
+);
+
+CREATE TABLE RigaOrdine (
+    id_riga INT AUTO_INCREMENT PRIMARY KEY,
+    id_ordine INT NOT NULL,
+    id_prodotto INT,
+    nome_prodotto VARCHAR(100) NOT NULL,
+    prezzo_unitario DECIMAL(10,2) NOT NULL,
+    quantita INT NOT NULL,
+    subtotale DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY(id_ordine) REFERENCES Ordine(id_ordine)
+);

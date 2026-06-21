@@ -1,0 +1,282 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: #f7f7f5;
+    color: #111827;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* HEADER */
+
+.header {
+    width: 100%;
+    margin: 0;
+    background-color: white;
+
+    padding: 20px 5%;
+}
+
+.logo {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    float: left;
+}
+
+.menu {
+	float: right;
+	
+    margin-top: 12px;
+}
+
+.menu a {
+    display: inline-block;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.header::after {
+
+    content: "";
+
+    display: block;
+
+    clear: both;
+
+}
+
+/* MAIN */
+
+.main {
+    width: 90%;
+    margin: 20px auto 0 auto;
+}
+
+.main::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.presentazione {
+    float: left;
+    width: 50%;
+
+    padding: 5%;
+
+    border-right: 1px solid #d1d5db;
+}
+
+.presentazioneDX {
+    float: right;
+    width: 50%;
+
+    padding: 5%;
+
+    text-align: center;
+}
+
+.testo-intro {
+    margin-top: 0;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.categoria {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    background: #fafafa;
+}
+
+.categoria h3 {
+    margin: 0 0 8px 0;
+}
+
+.categoria p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.titolo-laterale {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+.testo-laterale {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.bottone {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 16px;
+    background: #111827;
+    color: white;
+    font-weight: 700;
+    border-radius: 6px;
+}
+
+/* FOOTER */
+
+.footer {
+    width: 90%;
+    margin: 30px auto 0 auto;
+    padding: 20px 0;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* BREAKPOINT TABLET */
+
+@media (max-width:1024px) {
+
+    .prodotto {
+
+        width: 48%;
+
+        margin-right: 4%;
+
+    }
+
+
+}
+
+/* BREAKPOINT SMARTPHONE */
+
+@media (max-width:768px) {
+
+    .logo {
+
+        float: none;
+
+        text-align: center;
+
+    }
+
+    .ricerca {
+
+        float: none;
+
+        width: 100%;
+
+        margin: 15px 0;
+
+    }
+
+    .menu {
+
+        float: none;
+
+        text-align: center;
+
+    }
+
+    .prodotto {
+
+        width: 100%;
+
+        margin-right: 0;
+
+    }
+
+}
+
+/* BARRA DI RICERCA */
+.ricerca {
+
+    float: left;
+
+    width: 30%;
+
+    margin-left: 5%;
+
+    margin-top: 5px;
+
+}
+
+.ricerca input {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 5px;
+
+}
+
+/* CATALOGO */ 
+.catalogo {
+
+    width: 90%;
+
+    margin: 30px auto;
+
+}
+.catalogo::after {
+
+    content: "";
+
+    display: block;
+
+    clear: both;
+
+}
+.prodotto {
+
+    float: left;
+
+    width: 31%;
+
+    margin-right: 3.5%;
+
+    margin-bottom: 30px;
+
+    padding: 20px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+}
+.prodotto img {
+
+    width: 100%;
+
+    height: auto;
+
+    display: block;
+
+}
+.prodotto p {
+
+    margin-bottom: 15px;
+
+}
+.bottone-prodotto {
+
+    display: block;
+
+    text-align: center;
+
+    padding: 12px;
+
+    background: #111827;
+
+    color: white;
+
+}
