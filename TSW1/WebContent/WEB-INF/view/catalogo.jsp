@@ -35,9 +35,6 @@
             Home
         </a>
 
-        <a href="${pageContext.request.contextPath}/catalogo">
-            Catalogo
-        </a>
 
         <a href="${pageContext.request.contextPath}/login">
             Login
