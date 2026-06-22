@@ -20,8 +20,8 @@ a {
     width: 100%;
     margin: 0;
     background-color: white;
-
     padding: 20px 5%;
+    position: relative;
 }
 
 .logo {
@@ -139,126 +139,52 @@ a {
     color: #6b7280;
 }
 
-/* BREAKPOINT TABLET */
-
-@media (max-width:1024px) {
-
-    .prodotto {
-
-        width: 48%;
-
-        margin-right: 4%;
-
-    }
-
-
-}
-
-/* BREAKPOINT SMARTPHONE */
-
-@media (max-width:768px) {
-
-    .logo {
-
-        float: none;
-
-        text-align: center;
-
-    }
-
-    .ricerca {
-
-        float: none;
-
-        width: 100%;
-
-        margin: 15px 0;
-
-    }
-
-    .menu {
-
-        float: none;
-
-        text-align: center;
-
-    }
-
-    .prodotto {
-
-        width: 100%;
-
-        margin-right: 0;
-
-    }
-
-}
-
 /* BARRA DI RICERCA */
 .ricerca {
-
-    float: left;
-
-    width: 30%;
-
-    margin-left: 5%;
-
-    margin-top: 5px;
-
+	
+    position: absolute;
+  	right: 35%;
+  	left: 35%;
+  	width: 30%;
+    
 }
 
 .ricerca input {
-
     width: 100%;
-
     padding: 10px;
-
     border: 1px solid #d1d5db;
-
     border-radius: 5px;
-
 }
 
 /* CATALOGO */ 
 .catalogo {
 
     width: 90%;
-
     margin: 30px auto;
 
 }
 .catalogo::after {
 
     content: "";
-
     display: block;
-
     clear: both;
 
 }
 .prodotto {
 
     float: left;
-
     width: 31%;
-
     margin-right: 3.5%;
-
     margin-bottom: 30px;
-
     padding: 20px;
-
     background: white;
-
     border: 1px solid #e5e7eb;
 
 }
 .prodotto img {
 
     width: 100%;
-
     height: auto;
-
     display: block;
 
 }
@@ -270,13 +196,74 @@ a {
 .bottone-prodotto {
 
     display: block;
-
     text-align: center;
-
     padding: 12px;
-
     background: #111827;
-
     color: white;
 
+}
+
+
+
+/* BREAKPOINT TABLET */
+
+@media (max-width:1024px) {
+
+    .prodotto {
+
+        width: 48%;
+        margin-right: 4%;
+
+    }
+    
+    .logo {
+        float: none;
+        text-align: center;
+    }
+
+    .menu {
+        float: none;
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    .ricerca {
+    	position: static;
+    	transform: none;
+    	width: 100%;
+    	margin: 15px 0;
+	}
+
+}
+
+/* BREAKPOINT SMARTPHONE */
+
+@media (max-width:768px) {
+
+    .logo {
+        float: none;
+        text-align: center;
+    }
+
+    .menu {
+        float: none;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .ricerca {
+    	position: static;
+    	transform: none;
+    	width: 100%;
+    	margin: 15px 0;
+	}
+
+    .ricerca input {
+        width: 100%;
+    }
+
+    .menu a {
+        display: inline-block;
+        margin: 6px 8px;
+    }
 }

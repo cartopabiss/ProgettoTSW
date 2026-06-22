@@ -25,8 +25,7 @@
 
     <form class="ricerca">
 
-        <input type="text"
-               placeholder="Cerca prodotto...">
+        <input type="text" placeholder="Cerca prodotto...">
 
     </form>
 
