@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
 
-    <Resource name="jdbc/dacapoapiede"
+    <Resource name="jdbc/negozio"
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/dacapoapiede?useSSL=false&amp;serverTimezone=UTC"
+              url="jdbc:mysql://localhost:3306/negozio?useSSL=false&amp;serverTimezone=UTC"
               username="root"
               password="Lamiapass123"
               maxTotal="20"

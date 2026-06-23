@@ -17,7 +17,7 @@ public class DBConnection {
         if (dataSource == null) {
             try {
                 Context initContext = new InitialContext();
-                dataSource = (DataSource) initContext.lookup("java:comp/env/jdbc/dacapoapiede");
+                dataSource = (DataSource) initContext.lookup("java:comp/env/jdbc/negozio");
             } catch (NamingException e) {
                 throw new RuntimeException("Impossibile recuperare il DataSource", e);
             }

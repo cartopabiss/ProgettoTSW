@@ -17,37 +17,23 @@
 
 <body>
 
-<header class="header">
+	<header class="header">
+        <h1 class="logo">
+    		<a href="${pageContext.request.contextPath}/">Da Capo a Piede</a>
+		</h1>
 
-    <h1 class="logo">
-        Da Capo a Piede
-    </h1>
-
-    <nav class="menu">
-
-        <a href="${pageContext.request.contextPath}/">
-            Home
-        </a>
-
-        <a href="${pageContext.request.contextPath}/catalogo">
-            Catalogo
-        </a>
-
-        <a href="${pageContext.request.contextPath}/carrello">
-            Carrello
-        </a>
-
-    </nav>
-
-</header>
+        <nav class="menu">
+            <a href="${pageContext.request.contextPath}/home">Home</a>
+    		<a href="${pageContext.request.contextPath}/catalogo">
+        		Catalogo
+   			</a>
+        </nav>
+    </header>
 
 
 <main class="pagina-login">
-
-    <form class="form-login"
-          action="${pageContext.request.contextPath}/login"
-          method="post">
-
+	<form class="form-login" action="${pageContext.request.contextPath}/login" method="post">
+    
         <h2>Login</h2>
 
         <label>Email</label>
@@ -65,6 +51,19 @@
         <button type="submit">
             Accedi
         </button>
+        
+        <%
+    		String errore = (String) request.getAttribute("errore");
+    		if (errore != null) {
+    	%>
+
+        <div class="errore">
+        	<p><%= errore %></p>
+        </div>
+
+    	<%
+    		}
+    	%>
 
     </form>
 

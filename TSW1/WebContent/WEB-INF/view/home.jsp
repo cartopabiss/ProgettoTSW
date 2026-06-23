@@ -1,4 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.UtenteBean" %>
+
+<%
+	UtenteBean utente = (UtenteBean) session.getAttribute("utente");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +15,33 @@
 <body>
 
     <header class="header">
-        <h1 class="logo">Da Capo a Piede</h1>
+    	<h1 class="logo">
+    		<a href="${pageContext.request.contextPath}/">Da Capo a Piede</a>
+		</h1>
 
         <nav class="menu">
             <!-- <a href="${pageContext.request.contextPath}/home">Home</a> -->
-            <a href="${pageContext.request.contextPath}/catalogo">Catalogo</a>
-            <a href="${pageContext.request.contextPath}/login">Login</a>
-            <a href="${pageContext.request.contextPath}/carrello">Carrello</a>
+    		<a href="${pageContext.request.contextPath}/catalogo">
+        		Catalogo
+   			</a>
+
+   			<% if(utente == null) { %>
+
+    			<a href="${pageContext.request.contextPath}/login">
+            		Login
+        		</a>
+
+    		<% } else { %>
+
+        		<a href="${pageContext.request.contextPath}/profilo">
+            		Profilo
+        		</a>
+        		<a href="${pageContext.request.contextPath}/carrello">
+        			Carrello
+    			</a>
+
+    		<% } %>
+
         </nav>
     </header>
 

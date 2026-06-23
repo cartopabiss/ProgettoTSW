@@ -256,6 +256,12 @@ a {
 
 }
 
+.errore {
+	color: #FF1B1B;
+  	font-size: larger;
+  	font-weight: 550;
+}
+
 /* BREAKPOINT TABLET */
 
 @media (max-width:1024px) {
@@ -270,6 +276,11 @@ a {
     .logo {
         float: none;
         text-align: center;
+    }
+    
+    .logo a {
+    	text-decoration: none;
+    	color: inherit;
     }
 
     .menu {
