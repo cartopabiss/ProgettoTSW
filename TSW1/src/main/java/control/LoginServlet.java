@@ -28,18 +28,20 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(
-            HttpServletRequest request,
-            HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher(
-                        "/WEB-INF/view/login.jsp");
+    	HttpSession session = request.getSession(false);
 
-        dispatcher.forward(
-                request,
-                response);
+        if (session != null && session.getAttribute("utente") != null) {
+            response.sendRedirect(request.getContextPath() + "/profilo");
+            return;
+        }
+
+        request.getRequestDispatcher("/WEB-INF/view/login.jsp")
+               .forward(request, response);
+        
+        
     }
 
     @Override
@@ -81,9 +83,7 @@ public class LoginServlet extends HttpServlet {
 
                 HttpSession session = request.getSession();
 
-                session.setAttribute(
-                        "utente",
-                        utente);
+                session.setAttribute("utente", utente);
 
                 response.sendRedirect(request.getContextPath() + "/home");
 

@@ -161,7 +161,7 @@
 
 <footer class="footer">
 
-    © Da Capo a Piede
+   ......................
 
 </footer>
 

@@ -64,6 +64,15 @@
     	<%
     		}
     	%>
+    	
+		
+		<p class="testo-registrazione">
+		    Non hai un account?
+		
+		    <a href="${pageContext.request.contextPath}/registrazione">
+		        Registrati
+		    </a>
+		</p>
 
     </form>
 
@@ -72,7 +81,7 @@
 
 <footer class="footer">
 
-    © Da Capo a Piede
+    ......................
 
 </footer>
 

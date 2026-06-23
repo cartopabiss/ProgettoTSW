@@ -203,7 +203,7 @@ a {
 
 }
 
-/* LOGIN */
+/* LOGIN - REGISTRAZIONE */
 
 .pagina-login {
 
@@ -256,10 +256,52 @@ a {
 
 }
 
+.testo-registrazione {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.testo-registrazione a {
+    font-weight: 600;
+}
+
 .errore {
 	color: #FF1B1B;
   	font-size: larger;
   	font-weight: 550;
+}
+
+.testo-registrazione {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.testo-registrazione a {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.profilo {
+	width: 90%;
+    margin: 40px auto;	
+}
+
+.profilo div {
+	width: 85%;
+    margin: auto;
+    padding: 30px;
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+.profilo h2{
+	margin-top: 0;
+}
+
+.profilo a {
+    font-weight: 700;
+    text-decoration: underline;
+    
 }
 
 /* BREAKPOINT TABLET */
@@ -295,7 +337,10 @@ a {
     	width: 100%;
     	margin: 15px 0;
 	}
-
+	
+	.form-login {
+		width: 75%
+	}
 }
 
 /* BREAKPOINT SMARTPHONE */
@@ -328,4 +373,7 @@ a {
         display: inline-block;
         margin: 6px 8px;
     }
+    .form-login {
+		width: 85%
+	}
 }
