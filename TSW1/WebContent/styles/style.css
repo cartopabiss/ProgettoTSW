@@ -158,10 +158,8 @@ a {
 
 /* CATALOGO */ 
 .catalogo {
-
     width: 90%;
     margin: 30px auto;
-
 }
 .catalogo::after {
 
@@ -173,34 +171,62 @@ a {
 .prodotto {
 
     float: left;
-    width: 20%;
-    margin-right: 3.5%;
-    margin-bottom: 30px;
+    width: 275px;
+    margin: 15px;
     padding: 20px;
     background: white;
     border: 1px solid #e5e7eb;
-
 }
+
 .prodotto img {
 
     width: 100%;
-    height: auto;
+    height: 300px;
+    object-fit: cover;
     display: block;
-
 }
 .prodotto p {
 
     margin-bottom: 15px;
 
 }
-.bottone-prodotto {
 
+.bottone-prodotto {
     display: block;
     text-align: center;
     padding: 12px;
     background: #111827;
     color: white;
+}
 
+.prodotto-dettaglio {
+    width: 90%;
+    margin: 30px auto;
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 30px;
+    overflow: auto;
+}
+
+.prodotto-dettaglio-immagine {
+    float: left;
+    width: 40%;
+}
+
+.prodotto-dettaglio-immagine img {
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+    display: block;
+}
+
+.prodotto-dettaglio-testo {
+    float: right;
+    width: 55%;
+}
+
+.prodotto-dettaglio-testo h2 {
+    margin-top: 0;
 }
 
 /* LOGIN - REGISTRAZIONE */
@@ -307,13 +333,6 @@ a {
 /* BREAKPOINT TABLET */
 
 @media (max-width:1024px) {
-
-    .prodotto {
-
-        width: 48%;
-        margin-right: 4%;
-
-    }
     
     .logo {
         float: none;
