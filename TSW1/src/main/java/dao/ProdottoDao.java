@@ -10,4 +10,6 @@ public interface ProdottoDao {
     Collection<ProdottoBean> doRetrieveAll() throws SQLException;
 
     ProdottoBean doRetrieveByKey(int idProdotto) throws SQLException;
+
+    Collection<ProdottoBean> doRetrieveByNome(String nome) throws SQLException;
 }

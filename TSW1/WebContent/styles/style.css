@@ -229,6 +229,16 @@ a {
 .prodotto-dettaglio-testo h2 {
     margin-top: 0;
 }
+.griglia-prodotti::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.nessun-risultato {
+    padding: 20px 0;
+    color: #6b7280;
+}
 
 /* LOGIN - REGISTRAZIONE */
 
