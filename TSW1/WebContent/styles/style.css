@@ -21,7 +21,7 @@ a {
     width: 100%;
     margin: 0;
     background-color: white;
-    padding: 20px 5%;
+    padding: 25px 5%;
     position: relative;
 }
 
@@ -45,14 +45,33 @@ a {
     font-size: 16px;
 }
 
+.menu a:hover {
+    text-decoration: underline;
+}
+
 .header::after {
 
     content: "";
-
     display: block;
-
     clear: both;
 
+}
+
+.filtri{
+
+    padding: 1pt;
+    margin-top: 1pt;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    background: white;
+    color: #111827;
+    font-family: inherit;
+    font-size: 15px;
+
+}
+
+#cerca{
+	float: right;
 }
 
 /* MAIN */
@@ -157,6 +176,12 @@ a {
     border-radius: 5px;
 }
 
+/*.ricerca::after{
+	content: "";
+    display: block;	
+    clear: both;
+}*/
+
 /* CATALOGO */ 
 .catalogo {
     width: 90%;
@@ -237,7 +262,11 @@ a {
 
 .nessun-risultato {
     padding: 20px 0;
-    color: #6b7280;
+    color: black;	
+    font-size: larger;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
 }
 
 /* LOGIN - REGISTRAZIONE */

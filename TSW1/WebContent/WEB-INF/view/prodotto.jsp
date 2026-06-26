@@ -11,13 +11,13 @@ ProdottoBean prodotto = (ProdottoBean) request.getAttribute("prodotto");
 <html>
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title><%= prodotto.getNome() %></title>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title><%= prodotto.getNome() %></title>
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
 
 </head>
 

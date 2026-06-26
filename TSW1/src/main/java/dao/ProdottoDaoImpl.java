@@ -20,26 +20,11 @@ public class ProdottoDaoImpl implements ProdottoDao {
         this.ds = DBConnection.getDataSource();
     }
 
-    @Override
     public synchronized Collection<ProdottoBean> doRetrieveAll() throws SQLException {
 
-        Collection<ProdottoBean> prodotti = new ArrayList<>();
-
-        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE attivo = TRUE ORDER BY nome";
-
-        try (Connection connection = ds.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                prodotti.add(mapRow(rs));
-            }
-        }
-
-        return prodotti;
+        return doRetrieveByFiltri("", "", "nomeASC"); // di default l'ordine è in base al nome
     }
 
-    @Override
     public synchronized ProdottoBean doRetrieveByKey(int idProdotto) throws SQLException {
 
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id_prodotto = ?";
@@ -49,8 +34,9 @@ public class ProdottoDaoImpl implements ProdottoDao {
 
             ps.setInt(1, idProdotto);
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+            try(ResultSet rs = ps.executeQuery()) {
+
+                if(rs.next()) {
                     return mapRow(rs);
                 }
             }
@@ -59,24 +45,67 @@ public class ProdottoDaoImpl implements ProdottoDao {
         return null;
     }
 
-    @Override
-    public synchronized Collection<ProdottoBean> doRetrieveByNome(String nome) throws SQLException {
+    public synchronized Collection<ProdottoBean> doRetrieveByNome(String nome)
+            throws SQLException {
 
-        if (nome == null || nome.isBlank()) {
-            return doRetrieveAll();
-        }
+        return doRetrieveByFiltri(nome, "", "nomeASC");
+    }
+
+    @Override
+    public synchronized Collection<ProdottoBean> doRetrieveByFiltri(String nome, String categoria, String ordine)
+            throws SQLException {
 
         Collection<ProdottoBean> prodotti = new ArrayList<>();
 
-        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE attivo = TRUE AND LOWER(nome) LIKE LOWER(?) ORDER BY nome";
+        StringBuilder sql = new StringBuilder();
 
-        try (Connection connection = ds.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        sql.append("SELECT * FROM ").append(TABLE_NAME).append(" WHERE attivo = TRUE");
 
-            ps.setString(1, "%" + nome.trim() + "%");
+        if(nome != null && !nome.isBlank()) {
+            sql.append(" AND LOWER(nome) LIKE LOWER(?)");
+        }
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
+        if(categoria != null && !categoria.isBlank() && !categoria.equals("TUTTI")) {
+
+            sql.append(" AND categoria = ?");
+        }
+
+        switch(ordine) {
+
+            case "nomeDESC":
+                sql.append(" ORDER BY nome DESC");
+                break;
+
+            case "prezzoASC":
+                sql.append(" ORDER BY prezzo ASC");
+                break;
+
+            case "prezzoDESC":
+                sql.append(" ORDER BY prezzo DESC");
+                break;
+
+            default:
+                sql.append(" ORDER BY nome ASC");
+        }
+
+        try(Connection connection = ds.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql.toString())) {
+
+            int indice = 1;
+
+            if(nome != null && !nome.isBlank()) {
+                ps.setString(indice++, "%" + nome.trim() + "%");
+            }
+
+            if(categoria != null && !categoria.isBlank() && !categoria.equals("TUTTI")) {
+
+                ps.setString(indice++, categoria);
+            }
+
+            try(ResultSet rs = ps.executeQuery()) {
+
+                while(rs.next()) {
+
                     prodotti.add(mapRow(rs));
                 }
             }
