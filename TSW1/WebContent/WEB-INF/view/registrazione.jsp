@@ -34,6 +34,9 @@
         <a href="${pageContext.request.contextPath}/login">
             Login
         </a>
+        <a href="${pageContext.request.contextPath}/carrello">
+           	Carrello
+       	</a>
     </nav>
 
 </header>

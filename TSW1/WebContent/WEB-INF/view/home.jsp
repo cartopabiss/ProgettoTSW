@@ -36,11 +36,13 @@
         		<a href="${pageContext.request.contextPath}/profilo">
             		Profilo
         		</a>
-        		<a href="${pageContext.request.contextPath}/carrello">
-        			Carrello
-    			</a>
+        		
 
     		<% } %>
+    		
+	        <a href="${pageContext.request.contextPath}/carrello">
+	        	Carrello
+	    	</a>
 
         </nav>
     </header>

@@ -70,3 +70,19 @@ CREATE TABLE RigaOrdine (
     subtotale DECIMAL(10,2) NOT NULL,
     FOREIGN KEY(id_ordine) REFERENCES Ordine(id_ordine)
 );
+
+
+
+query per aggiungere un nuovo prodotto: 
+INSERT INTO Prodotto
+(nome, descrizione, prezzo, categoria, immagine, quantita_magazzino, attivo)
+VALUES
+(
+    'Borsalino Rosso',
+    'Borssalino di alta qualità',
+    34.90,
+    'CAPPELLO',
+    'cappello2.jpg',
+    20,
+    TRUE
+);

@@ -15,4 +15,6 @@ public interface ProdottoDao {
     Collection<ProdottoBean> doRetrieveByNome(String nome) throws SQLException;
 
     Collection<ProdottoBean> doRetrieveByFiltri(String nome, String categoria, String ordine) throws SQLException;
+    
+    Collection<ProdottoBean> doRetrieveAbbinati(int idProdotto) throws SQLException;
 }

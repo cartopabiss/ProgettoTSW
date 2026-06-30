@@ -38,6 +38,10 @@
 	        <a href="${pageContext.request.contextPath}/catalogo">
 	            Catalogo
 	        </a>
+	        
+	        <a href="${pageContext.request.contextPath}/carrello">
+                Carrello
+            </a>
 	
 	
 	    </nav>

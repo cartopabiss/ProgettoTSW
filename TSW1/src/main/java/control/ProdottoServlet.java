@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ProdottoBean;
+import java.util.Collection;
 
 @WebServlet("/prodotto")
 public class ProdottoServlet extends HttpServlet {
@@ -21,7 +22,6 @@ public class ProdottoServlet extends HttpServlet {
         super();
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -37,6 +37,7 @@ public class ProdottoServlet extends HttpServlet {
 
             ProdottoDao dao = new ProdottoDaoImpl();
             ProdottoBean prodotto = dao.doRetrieveByKey(id);
+            Collection<ProdottoBean> correlati = dao.doRetrieveAbbinati(id);
 
             if (prodotto == null) {
                 response.sendRedirect(request.getContextPath() + "/catalogo");
@@ -44,6 +45,7 @@ public class ProdottoServlet extends HttpServlet {
             }
 
             request.setAttribute("prodotto", prodotto);
+            request.setAttribute("correlati", correlati);
             request.getRequestDispatcher("/WEB-INF/view/prodotto.jsp").forward(request, response);
 
         } catch (NumberFormatException e) {

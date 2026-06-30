@@ -64,19 +64,17 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 	            <a href="${pageContext.request.contextPath}/login">
 	                Login
 	            </a>
-	
 	        <% } else { %>
 	
 	            <a href="${pageContext.request.contextPath}/profilo">
 	                Profilo
 	            </a>
 	
-	            <a href="${pageContext.request.contextPath}/carrello">
-	                Carrello
-	            </a>
-	
 	        <% } %>
-	
+	        
+			<a href="${pageContext.request.contextPath}/carrello">
+	        	Carrello
+	    	</a>
 	    </nav>
 	</header>
 	
@@ -127,53 +125,53 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 	
 	</footer>
 	<script>
+		
+		const ricerca = document.getElementById("testoRicerca");
+		const categoria = document.getElementById("categoria");
+		const ordine = document.getElementById("ordine");
+		const formRicerca = document.getElementById("formRicerca");
+		
+		const lista = document.getElementById("listaProdotti");
+		const errore = document.getElementById("erroreRicerca");
+		
+		ricerca.addEventListener("input", aggiornaCatalogo);
+		categoria.addEventListener("change", aggiornaCatalogo);
+		ordine.addEventListener("change", aggiornaCatalogo);
+		
+		formRicerca.addEventListener("submit", function(event) {
+		    event.preventDefault();   // impedisce il ricaricamento della pagina
+		    aggiornaCatalogo();
 	
-	const ricerca = document.getElementById("testoRicerca");
-	const categoria = document.getElementById("categoria");
-	const ordine = document.getElementById("ordine");
-	const formRicerca = document.getElementById("formRicerca");
-	
-	const lista = document.getElementById("listaProdotti");
-	const errore = document.getElementById("erroreRicerca");
-	
-	ricerca.addEventListener("input", aggiornaCatalogo);
-	categoria.addEventListener("change", aggiornaCatalogo);
-	ordine.addEventListener("change", aggiornaCatalogo);
-	
-	formRicerca.addEventListener("submit", function(event) {
-	    event.preventDefault();   // impedisce il ricaricamento della pagina
-	    aggiornaCatalogo();
-
-	});
-	
-	function aggiornaCatalogo() {
-	
-	    let nome = ricerca.value.trim();
-	
-	    if(nome.length > 10){
-	        errore.textContent = "Massimo 10 caratteri";
-	        return;
-	    }
-	
-	    errore.textContent = "";
-	    let xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function(){
-	
-	        if(xhr.readyState == 4 && xhr.status == 200){
-	       		lista.innerHTML = xhr.responseText; //qui si riceve direttamente la riposta del server formattata
-	        }
-	
-	    };
-	
-	    let url = "${pageContext.request.contextPath}/ricerca"
-	        + "?nome=" + encodeURIComponent(nome)
-	        + "&categoria=" + categoria.value
-	        + "&ordine=" + ordine.value;
-	
-	    xhr.open("GET", url, true);
-	    xhr.send();
-	
-	}
+		});
+		
+		function aggiornaCatalogo() {
+		
+		    let nome = ricerca.value.trim();
+		
+		    if(nome.length > 10){
+		        errore.innerrHtml = "Massimo 10 caratteri";
+		        return;
+		    }
+		
+		    errore.textContent = "";
+		    let xhr = new XMLHttpRequest();
+		    xhr.onreadystatechange = function(){
+		
+		        if(xhr.readyState == 4 && xhr.status == 200){
+		       		lista.innerHTML = xhr.responseText; //qui si riceve direttamente la riposta del server formattata
+		        }
+		
+		    };
+		
+		    let url = "${pageContext.request.contextPath}/ricerca"
+		        + "?nome=" + encodeURIComponent(nome)
+		        + "&categoria=" + categoria.value
+		        + "&ordine=" + ordine.value;
+		
+		    xhr.open("GET", url, true);
+		    xhr.send();
+		
+		}
 	
 	</script>
 

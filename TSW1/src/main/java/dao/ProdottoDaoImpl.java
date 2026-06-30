@@ -24,6 +24,34 @@ public class ProdottoDaoImpl implements ProdottoDao {
 
         return doRetrieveByFiltri("", "", "nomeASC"); // di default l'ordine è in base al nome
     }
+    
+    public synchronized Collection<ProdottoBean> doRetrieveAbbinati(int idProdotto) throws SQLException {
+
+        Collection<ProdottoBean> prodotti = new ArrayList<>();
+
+        String sql = "SELECT p.* " +
+            "FROM " + TABLE_NAME + " p " +
+            "JOIN Abbinamento a " +
+            "ON ((a.id_prodotto1 = ? AND p.id_prodotto = a.id_prodotto2) " +
+            " OR (a.id_prodotto2 = ? AND p.id_prodotto = a.id_prodotto1)) " +
+            "WHERE p.attivo = TRUE";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idProdotto);
+            ps.setInt(2, idProdotto);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+                    prodotti.add(mapRow(rs));
+                }
+            }
+        }
+
+        return prodotti;
+    }
 
     public synchronized ProdottoBean doRetrieveByKey(int idProdotto) throws SQLException {
 
@@ -51,7 +79,6 @@ public class ProdottoDaoImpl implements ProdottoDao {
         return doRetrieveByFiltri(nome, "", "nomeASC");
     }
 
-    @Override
     public synchronized Collection<ProdottoBean> doRetrieveByFiltri(String nome, String categoria, String ordine)
             throws SQLException {
 

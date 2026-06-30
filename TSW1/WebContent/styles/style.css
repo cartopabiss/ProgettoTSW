@@ -370,6 +370,85 @@ a {
     
 }
 
+
+/* CARRELLO */
+
+.tabella-carrello {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.tabella-carrello th,
+.tabella-carrello td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.cella-prodotto img {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-carrello {
+    display: inline-block;
+}
+
+.form-carrello input[type="number"] {
+    width: 70px;
+    padding: 6px;
+    border: 1px solid #d1d5db;
+}
+
+.bottone-carrello {
+
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+
+}
+
+.bottone-link {
+
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+
+}
+.carrello-riepilogo {
+
+    margin-top: 25px;
+    overflow: auto;
+
+}
+
+.carrello-riepilogo h3 {
+
+    float: left;
+    margin: 0;
+
+}
+
+.carrello-riepilogo form {
+
+    float: right;
+    margin: 0;
+
+}
+
+.continua-shopping {
+
+    text-align: center;
+    margin-top: 20px;
+
+}
+
 /* BREAKPOINT TABLET */
 
 @media (max-width:1024px) {
