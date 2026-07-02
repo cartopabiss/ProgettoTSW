@@ -71,7 +71,6 @@
 		
 		        <%
 		            String errore = (String) request.getAttribute("errore");
-		
 		            if (errore != null) {
 		        %>
 		

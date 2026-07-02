@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.sql.DataSource;
-
+import model.BundleProdottoBean;
 import model.ProdottoBean;
 
 public class ProdottoDaoImpl implements ProdottoDao {
@@ -23,6 +23,38 @@ public class ProdottoDaoImpl implements ProdottoDao {
     public synchronized Collection<ProdottoBean> doRetrieveAll() throws SQLException {
 
         return doRetrieveByFiltri("", "", "nomeASC"); // di default l'ordine è in base al nome
+    }
+    
+    public synchronized Collection<BundleProdottoBean> doRetrieveProdottiBundle(int idBundle) throws SQLException {
+
+        Collection<BundleProdottoBean> prodottiBundle = new ArrayList<>();
+
+        String sql ="SELECT p.*, bp.quantita " +
+            "FROM BundleProdotto bp " +
+            "JOIN Prodotto p ON bp.id_prodotto = p.id_prodotto " +
+            "WHERE bp.id_bundle = ? AND p.attivo = TRUE";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idBundle);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    ProdottoBean prodotto = mapRow(rs);
+
+                    BundleProdottoBean bundleSingolo = new BundleProdottoBean();
+                    bundleSingolo.setProdotto(prodotto);
+                    bundleSingolo.setQuantita(rs.getInt("quantita"));
+
+                    prodottiBundle.add(bundleSingolo);
+                }
+            }
+        }
+
+        return prodottiBundle;
     }
     
     public synchronized Collection<ProdottoBean> doRetrieveAbbinati(int idProdotto) throws SQLException {
@@ -139,6 +171,64 @@ public class ProdottoDaoImpl implements ProdottoDao {
         }
 
         return prodotti;
+    }
+    
+    //METODI PER L'ADMIN
+    public synchronized void doSave(ProdottoBean prodotto) throws SQLException {
+
+        String sql = "INSERT INTO " + TABLE_NAME +
+                " (nome, descrizione, prezzo, categoria, immagine, quantita_magazzino, attivo) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, prodotto.getNome());
+            ps.setString(2, prodotto.getDescrizione());
+            ps.setDouble(3, prodotto.getPrezzo());
+            ps.setString(4, prodotto.getCategoria());
+            ps.setString(5, prodotto.getImmagine());
+            ps.setInt(6, prodotto.getQuantitaMagazzino());
+            ps.setBoolean(7, true);
+
+            ps.executeUpdate();
+        }
+    }
+    public synchronized void doUpdate(ProdottoBean prodotto) throws SQLException {
+
+        String sql = "UPDATE " + TABLE_NAME +
+                " SET nome = ?, descrizione = ?, prezzo = ?, categoria = ?, " +
+                "immagine = ?, quantita_magazzino = ? " +
+                "WHERE id_prodotto = ?";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, prodotto.getNome());
+            ps.setString(2, prodotto.getDescrizione());
+            ps.setDouble(3, prodotto.getPrezzo());
+            ps.setString(4, prodotto.getCategoria());
+            ps.setString(5, prodotto.getImmagine());
+            ps.setInt(6, prodotto.getQuantitaMagazzino());
+
+            ps.setInt(7, prodotto.getIdProdotto());
+
+            ps.executeUpdate();
+        }
+    }
+    public synchronized void doDelete(int idProdotto) throws SQLException {
+
+        String sql = "UPDATE " + TABLE_NAME +
+                     " SET attivo = FALSE " +
+                     "WHERE id_prodotto = ?";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idProdotto);
+
+            ps.executeUpdate();
+        }
     }
 
     private ProdottoBean mapRow(ResultSet rs) throws SQLException {

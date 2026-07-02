@@ -20,7 +20,6 @@ public class UtenteDaoImpl implements UtenteDao {
         this.ds = DBConnection.getDataSource();
     }
 
-    @Override
     public synchronized void doSave(UtenteBean utente) throws SQLException {
 
         String sql = "INSERT INTO " + TABLE_NAME +
@@ -42,7 +41,6 @@ public class UtenteDaoImpl implements UtenteDao {
         }
     }
 
-    @Override
     public synchronized boolean doDelete(int idUtente) throws SQLException {
 
         String sql = "DELETE FROM " + TABLE_NAME + " WHERE id_utente = ?";
@@ -75,7 +73,6 @@ public class UtenteDaoImpl implements UtenteDao {
         return null;
     }
 
-    @Override
     public synchronized UtenteBean doRetrieveByEmail(String email) throws SQLException {
 
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE email = ?";
