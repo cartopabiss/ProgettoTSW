@@ -61,9 +61,18 @@ public class AdminServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin");
                     return;
                 }
+                
+                Collection<ProdottoBean> disponibili = dao.doRetrieveDisponibili(id);
 
                 request.setAttribute("prodotto", prodotto);
                 request.setAttribute("formAction", "modifica");
+                request.setAttribute("disponibili", disponibili);
+
+                if ("BUNDLE".equals(prodotto.getCategoria())) {
+
+                    request.setAttribute( "componenti", dao.doRetrieveProdottiBundle(id));
+
+                }
 
                 request.getRequestDispatcher("/WEB-INF/view/adminForm.jsp").forward(request, response);
                 return;
@@ -116,10 +125,9 @@ public class AdminServlet extends HttpServlet {
                         prezzoString == null || prezzoString.isBlank() ||
                         categoria == null || categoria.isBlank() ||
                         immagine == null || immagine.isBlank() ||
-                        quantitaString == null || quantitaString.isBlank()) {
-                    	
-                        response.sendRedirect(request.getContextPath() + "/admin?azione=nuovo");
-                        return;
+                        quantitaString == null || quantitaString.isBlank()) { 	
+	                        response.sendRedirect(request.getContextPath() + "/admin?azione=nuovo");
+	                        return;
                     }
 
                     ProdottoBean prodotto = new ProdottoBean();
@@ -152,8 +160,8 @@ public class AdminServlet extends HttpServlet {
                         categoria == null || categoria.isBlank() ||
                         immagine == null || immagine.isBlank() ||
                         quantitaString == null || quantitaString.isBlank()) {
-                        response.sendRedirect(request.getContextPath() + "/admin");
-                        return;
+                    	response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + idString);
+	                    return;
                     }
 
                     ProdottoBean prodotto = new ProdottoBean();
@@ -181,6 +189,29 @@ public class AdminServlet extends HttpServlet {
 
                     dao.doDelete(Integer.parseInt(idString));
                     response.sendRedirect(request.getContextPath() + "/admin");
+                    return;
+                }
+                case "aggiungiBundle": {
+
+                    int idBundle = Integer.parseInt(request.getParameter("idBundle"));
+                    int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+                    int quantita = Integer.parseInt(request.getParameter("quantita"));
+
+                    dao.doAddProdottoBundle(idBundle, idProdotto, quantita);
+
+                    response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + idBundle);
+
+                    return;
+                }
+                case "rimuoviBundle": {
+
+                    int idBundle = Integer.parseInt(request.getParameter("idBundle"));
+                    int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+
+                    dao.doRemoveProdottoBundle(idBundle, idProdotto);
+
+                    response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + idBundle);
+
                     return;
                 }
 

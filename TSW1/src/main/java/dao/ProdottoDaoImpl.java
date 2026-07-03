@@ -230,6 +230,73 @@ public class ProdottoDaoImpl implements ProdottoDao {
             ps.executeUpdate();
         }
     }
+    
+    //metodi admin per abbinamento e bundle
+    public synchronized Collection<ProdottoBean> doRetrieveDisponibili(int idBundle) throws SQLException {
+
+        Collection<ProdottoBean> prodotti = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + TABLE_NAME +
+            " WHERE attivo = TRUE " +
+            "AND id_prodotto <> ? " +
+            "AND id_prodotto NOT IN (" +
+                "SELECT id_prodotto " +
+                "FROM BundleProdotto " +
+                "WHERE id_bundle = ?" +
+            ") " +
+            "ORDER BY nome";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idBundle);
+            ps.setInt(2, idBundle);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+                    prodotti.add(mapRow(rs));
+                }
+            }
+        }
+
+        return prodotti;
+    }
+    
+    public synchronized void doAddProdottoBundle(int idBundle, int idProdotto, int quantita) throws SQLException {
+
+        String sql = "INSERT INTO BundleProdotto (id_bundle, id_prodotto, quantita) VALUES (?, ?, ?)";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idBundle);
+            ps.setInt(2, idProdotto);
+            ps.setInt(3, quantita);
+
+            ps.executeUpdate();
+        }
+    }
+    public synchronized void doRemoveProdottoBundle(int idBundle, int idProdotto)
+            throws SQLException {
+
+        String sql = "DELETE FROM BundleProdotto WHERE id_bundle = ? AND id_prodotto = ?";
+
+        try(Connection connection = ds.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idBundle);
+            ps.setInt(2, idProdotto);
+
+            ps.executeUpdate();
+        }
+    }
+    public synchronized void doAddAbbinamento(int idProdotto1, int idProdotto2) {
+    	//da fare
+    }
+    public synchronized void doRemoveAbbinamento(int idProdotto1, int idProdotto2) {
+    	//da fare
+    }
 
     private ProdottoBean mapRow(ResultSet rs) throws SQLException {
 

@@ -29,4 +29,15 @@ public interface ProdottoDao {
 
     void doDelete(int idProdotto) throws SQLException;
     
+    //metodi dell'admin per gestire bundle e abbinamenti 
+    Collection<ProdottoBean> doRetrieveDisponibili(int idProdotto) throws SQLException;//come retrieveAll ma non ritorna il prodotto specificato in input 
+
+    void doAddProdottoBundle(int idBundle, int idProdotto, int quantita) throws SQLException;
+
+    void doRemoveProdottoBundle(int idBundle, int idProdotto) throws SQLException;
+
+    void doAddAbbinamento(int idProdotto1, int idProdotto2) throws SQLException;
+
+    void doRemoveAbbinamento(int idProdotto1, int idProdotto2) throws SQLException;
+    
 }

@@ -1,13 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.ProdottoBean"%>
-
+<%@ page import="java.util.Collection"%>
+<%@ page import="model.BundleProdottoBean"%>
 <%
     ProdottoBean prodotto = (ProdottoBean) request.getAttribute("prodotto");
     String formAction = (String) request.getAttribute("formAction");
-
-    if (prodotto == null) {
-        prodotto = new ProdottoBean();
-    }
+    //prodotti aggiungibili (diversi dal prodotto in considerazione)
+    Collection<ProdottoBean> disponibili = (Collection<ProdottoBean>) request.getAttribute("disponibili");
+    //componenti del bundle
+    Collection<BundleProdottoBean> componenti = (Collection<BundleProdottoBean>) request.getAttribute("componenti");
 %>
 
 <!DOCTYPE html>
@@ -50,10 +51,12 @@
 			
 			<h2>
 			
-			<%= formAction.equals("aggiungi") ?
-			        "Aggiungi prodotto" :
-			        "Modifica prodotto" %>
-			
+			        
+				<%if (formAction.equals("aggiungi")) {%>
+					Aggiungi prodotto
+				<%} else {%>
+					Modifica prodotto
+				<%} %>
 			</h2>
 			
 			<form action="${pageContext.request.contextPath}/admin" method="post" class="form-admin">
@@ -69,8 +72,7 @@
 			    <label>Nome</label>
 			
 			    <input type="text" name="nome"
-			           value="<%= prodotto.getNome() == null ? "" : prodotto.getNome() %>"
-			           required>
+			           value="<%= prodotto.getNome() == null ? "" : prodotto.getNome() %>" required>
 			
 			    <label>Descrizione</label>
 			
@@ -78,32 +80,22 @@
 			
 			    <label>Prezzo</label>
 			
-			    <input type="number" step="0.01" min="0" name="prezzo" value="<%= prodotto.getPrezzo() %>"
-			           required>
+			    <input type="number" step="0.01" min="0" name="prezzo" value="<%= prodotto.getPrezzo() %>" required>
 			
 			    <label>Categoria</label>
 			
 			    <select name="categoria">
 			
-			        <option value="CAPPELLO"
-			        <%= "CAPPELLO".equals(prodotto.getCategoria()) ? "selected" : "" %>>
-			
+			        <option value="CAPPELLO" <%= "CAPPELLO".equals(prodotto.getCategoria()) ? "selected" : "" %>>
 			            CAPPELLO
-			
 			        </option>
 			
-			        <option value="CALZINO"
-			        <%= "CALZINO".equals(prodotto.getCategoria()) ? "selected" : "" %>>
-			
+			        <option value="CALZINO" <%= "CALZINO".equals(prodotto.getCategoria()) ? "selected" : "" %>>
 			            CALZINO
-			
 			        </option>
 			
-			        <option value="BUNDLE"
-			        <%= "BUNDLE".equals(prodotto.getCategoria()) ? "selected" : "" %>>
-			
+			        <option value="BUNDLE" <%= "BUNDLE".equals(prodotto.getCategoria()) ? "selected" : "" %>>
 			            BUNDLE
-			
 			        </option>
 			
 			    </select>
@@ -111,8 +103,7 @@
 			    <label>Immagine</label>
 			
 			    <input type="text" name="immagine"
-			           value="<%= prodotto.getImmagine() == null ? "" : prodotto.getImmagine() %>"
-			           required>
+			           value="<%= prodotto.getImmagine() == null ? "" : prodotto.getImmagine() %>" required>
 			
 			    <label>Quantità in magazzino</label>
 			
@@ -130,7 +121,93 @@
 			    </button>
 			
 			</form>
-		
+			
+			<% if (formAction.equals("modifica") && "BUNDLE".equals(prodotto.getCategoria())) { %>
+			    <hr>
+			    <h3>Aggiungi componente</h3>
+					
+					<form action="${pageContext.request.contextPath}/admin" method="post">
+					
+					    <input type="hidden" name="azione" value="aggiungiBundle">
+					
+					    <input type="hidden" name="idBundle" value="<%= prodotto.getIdProdotto() %>">
+					
+					    <label>Prodotto</label>
+					
+					    <select name="idProdotto">
+					
+					        <% for (ProdottoBean p : disponibili) { %>
+					
+					            <option value="<%= p.getIdProdotto() %>">
+					
+					                <%= p.getNome() %>
+					
+					            </option>
+					
+					        <% } %>
+					
+					    </select>
+					
+					    <label>Quantità</label>
+					
+					    <input type="number" name="quantita" value="1" min="1">
+					
+					    <button type="submit"> Aggiungi </button>
+					
+					</form>
+					
+					<br>
+			
+			    <h3>Componenti del bundle</h3>	
+
+				<% if (componenti == null || componenti.isEmpty()) { %>
+				
+				    <p>Nessun prodotto presente nel bundle.</p>
+				
+				<% } else { %>
+				
+				    <table>
+				
+				        <tr>
+				            <th>Prodotto</th>
+				            <th>Quantità</th>
+    						<th>Azione</th>
+				        </tr>
+				
+				        <% for(BundleProdottoBean componente : componenti) { %>
+				
+				            <tr>
+				
+				                <td>
+				                    <%= componente.getProdotto().getNome() %>
+				                </td>
+				
+				                <td>
+				                    <%= componente.getQuantita() %>
+				                </td>
+				                <td>
+				                	 <form action="${pageContext.request.contextPath}/admin" method="post">
+							
+							            <input type="hidden" name="azione" value="rimuoviBundle">
+							            <input type="hidden" name="idBundle" value="<%= prodotto.getIdProdotto() %>">
+							            <input type="hidden" name="idProdotto" value="<%= componente.getProdotto().getIdProdotto() %>">
+							
+							            <button type="submit">
+							                Rimuovi
+							         	</button>
+           							</form>
+				                </td>
+
+				            </tr>
+				
+				        <% } %>
+				
+				    </table>
+				
+				<% } %>
+			
+			<% } %>
+					
 		</main>
 		
 		<footer class="footer">
