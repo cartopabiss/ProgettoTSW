@@ -9,16 +9,12 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 
 <!DOCTYPE html>
 <html>
-	
 	<head>
-		
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
 		<title>Catalogo</title>
-		
-		<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/styles/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
 	
 	</head>
 	
@@ -58,6 +54,9 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 	        <a href="${pageContext.request.contextPath}/home">
 	            Home
 	        </a>
+	        <a href="${pageContext.request.contextPath}/carrello">
+	        	Carrello
+	    	</a>
 	
 	        <% if(utente == null){ %>
 	
@@ -71,10 +70,7 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 	            </a>
 	
 	        <% } %>
-	        
-			<a href="${pageContext.request.contextPath}/carrello">
-	        	Carrello
-	    	</a>
+			
 	    </nav>
 	</header>
 	
