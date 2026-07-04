@@ -1,7 +1,11 @@
-	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.ProdottoBean"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="model.BundleProdottoBean"%>
+
+<%@ page import="model.AbbinamentoBean"%>
+
+
 <%
     ProdottoBean prodotto = (ProdottoBean) request.getAttribute("prodotto");
     String formAction = (String) request.getAttribute("formAction");
@@ -9,6 +13,11 @@
     Collection<ProdottoBean> disponibili = (Collection<ProdottoBean>) request.getAttribute("disponibili");
     //componenti del bundle
     Collection<BundleProdottoBean> componenti = (Collection<BundleProdottoBean>) request.getAttribute("componenti");
+    //prodotti già abbinati
+    Collection<AbbinamentoBean> abbinamenti = (Collection<AbbinamentoBean>) request.getAttribute("abbinati");
+	//prodotti non ancora abbinati
+	Collection<ProdottoBean> nonAbbinati = (Collection<ProdottoBean>) request.getAttribute("nonAbbinati");
+					
 %>
 
 <!DOCTYPE html>
@@ -70,15 +79,17 @@
 				
 				    <select name="categoria">
 					
-					<%if (prodotto.getCategoria().equals("BUNDLE")){ %>
-						<option value="BUNDLE" <%= "BUNDLE".equals(prodotto.getCategoria()) ? "selected" : "" %>>
+					<%if (formAction.equals("modifica") && prodotto.getCategoria().equals("BUNDLE")){ %>
+						<option value="BUNDLE" selected>
 				            BUNDLE
 				        </option>
 					<% } else { %>
+						<option value="BUNDLE" <%= "BUNDLE".equals(prodotto.getCategoria()) ? "selected" : "" %>>
+				            BUNDLE
+				        </option>
 				        <option value="CAPPELLO" <%= "CAPPELLO".equals(prodotto.getCategoria()) ? "selected" : "" %>>
 				            CAPPELLO
 				        </option>
-				
 				        <option value="CALZINO" <%= "CALZINO".equals(prodotto.getCategoria()) ? "selected" : "" %>>
 				            CALZINO
 				        </option>
@@ -108,9 +119,116 @@
 				</div>
 				
 				<div class="formDX">
+					<% if (formAction.equals("modifica")) { %>
+
+					    <h3>Abbina altri prodotti</h3>
+					
+					    <form action="${pageContext.request.contextPath}/admin" method="post">
+					
+					        <input type="hidden" name="azione" value="aggiungiAbbinamento">
+					        <input type="hidden" name="idProdotto1" value="<%= prodotto.getIdProdotto() %>">
+					
+					        <label>Prodotto da abbinare</label>
+					
+					        <select name="idProdotto2">
+					
+					            <%
+					                
+					                if (nonAbbinati != null) {
+					                    for (ProdottoBean p : nonAbbinati) {
+					            %>
+					
+					                <option value="<%= p.getIdProdotto() %>">
+					                    <%= p.getNome() %>
+					                </option>
+					
+					            <%
+					                    }
+					                }
+					            %>
+					
+					        </select>
+					        <button type="submit">Aggiungi abbinamento</button>
+					    </form>
+					
+					    <br>
+					
+					    <h3>Abbinamenti esistenti</h3>
+					
+					    <%
+					
+					        if (abbinamenti == null || abbinamenti.isEmpty()) {
+					    %>
+					
+					        <p>Nessun abbinamento presente.</p>
+					
+					    <%
+					        } else {
+					    %>
+					
+					        <table class="tabella-admin">
+					
+					            <tr>
+					                <th>Prodotto</th>
+					                <th>Azione</th>
+					            </tr>
+					
+					            <%
+					                for (AbbinamentoBean a : abbinamenti) {
+					
+					                	ProdottoBean altro;
+					                	if (a.getProdotto1().getIdProdotto() == prodotto.getIdProdotto()) {
+					                	    altro = a.getProdotto2();
+					                	} else {
+					                	    altro = a.getProdotto1();
+					                	}
+					            %>
+					
+					            <tr>
+					                <td>
+					                <img src="${pageContext.request.contextPath}/images/<%= altro.getImmagine() %>"
+		                				width="70"> <%= altro.getNome() %>  </td>
+					
+					                <td>
+					
+					                    <form action="${pageContext.request.contextPath}/admin" method="post">
+					
+					                        <input type="hidden" name="azione" value="rimuoviAbbinamento">
+					
+					                        <input type="hidden" name="idProdotto1"
+					                               value="<%= a.getProdotto1().getIdProdotto() %>">
+					                               
+					                        <input type="hidden" name="ritornaA"
+					                        	   value="<%= prodotto.getIdProdotto() %>">
+					
+					                        <input type="hidden" name="idProdotto2"
+					                               value="<%= a.getProdotto2().getIdProdotto() %>">
+					
+					                        <button type="submit">Rimuovi</button>
+					
+					                    </form>
+					
+					                </td>
+					            </tr>
+					
+					            <% } %>
+					
+					        </table>
+					
+					    <%
+					        }
+					    %>
+					
+					<% } %>
+					
+					
+					
+					
+					
+					
 				<% if (formAction.equals("modifica") && "BUNDLE".equals(prodotto.getCategoria())) { %>	
-				    
-				    	<h3>Componenti del bundle</h3>
+				    	<hr>
+				    	<h3>Aggiungi prodotto</h3>
 				    	
 						<form action="${pageContext.request.contextPath}/admin" method="post">
 						

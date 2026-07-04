@@ -24,10 +24,8 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 		    </h1>
 		
 		    <nav class="menu">
-		
 		        <a href="${pageContext.request.contextPath}/home"> Home</a>	
 		        <a href="${pageContext.request.contextPath}/logout"> Logout </a>
-		
 		    </nav>
 		
 		</header>
@@ -59,38 +57,27 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 		        <tr>
 		
 		            <td>
-		
 		                <img src="${pageContext.request.contextPath}/images/<%= prodotto.getImmagine() %>"
 		                width="70">
-		
 		            </td>
 		
 		            <td>
-		
 		                <%= prodotto.getNome() %>
-		
 		            </td>
 		
 		            <td>
-		
 		                <%= prodotto.getCategoria() %>
-		
 		            </td>
 		
 		            <td>
-		
 		               &euro; <%= String.format("%.2f", prodotto.getPrezzo()) %>
-		
 		            </td>
 		
 		            <td>
-		
 		                <%= prodotto.getQuantitaMagazzino() %>
-		
 		            </td>
 		
 		            <td>
-		
 		                <a class="bottone-admin" href="${pageContext.request.contextPath}/admin?azione=modifica&id=<%= prodotto.getIdProdotto() %>">
 		                    Modifica
 		                </a>
@@ -104,13 +91,9 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 		                </form>
 		
 		            </td>
-		
 		        </tr>
-		
 		        <% } %>
-		
 		    </table>
-		
 		</main>
 		
 		<footer class="footer">

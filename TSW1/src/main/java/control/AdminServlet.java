@@ -12,8 +12,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.AbbinamentoBean;
 import model.AdminBean;
 import model.ProdottoBean;
+import dao.AbbinamentoDaoImpl;
+import dao.AbbinamentoDao;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
@@ -37,6 +40,7 @@ public class AdminServlet extends HttpServlet {
 
         try {
             ProdottoDao dao = new ProdottoDaoImpl();
+            AbbinamentoDao daoAbb = new AbbinamentoDaoImpl();
 
             if ("nuovo".equals(azione)) {
                 request.setAttribute("prodotto", new ProdottoBean());
@@ -63,10 +67,15 @@ public class AdminServlet extends HttpServlet {
                 }
                 
                 Collection<ProdottoBean> disponibili = dao.doRetrieveDisponibili(id);
+                Collection<AbbinamentoBean> abbinati = daoAbb.doRetrieveByProdotto(id);
+                Collection<ProdottoBean> nonAbbinati = daoAbb.doRetrieveNonAbbinati(id);
 
                 request.setAttribute("prodotto", prodotto);
                 request.setAttribute("formAction", "modifica");
                 request.setAttribute("disponibili", disponibili);
+                request.setAttribute("abbinati", abbinati);
+                request.setAttribute("nonAbbinati", nonAbbinati);
+                
 
                 if ("BUNDLE".equals(prodotto.getCategoria())) {
 
@@ -193,25 +202,103 @@ public class AdminServlet extends HttpServlet {
                 }
                 case "aggiungiBundle": {
 
-                    int idBundle = Integer.parseInt(request.getParameter("idBundle"));
-                    int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
-                    int quantita = Integer.parseInt(request.getParameter("quantita"));
+                	String idBundleString = request.getParameter("idBundle");
+                    String idProdottoString = request.getParameter("idProdotto");
+                    String quantitaString = request.getParameter("quantita");
+
+                    if (idBundleString == null || idProdottoString == null || quantitaString == null ||
+                        idBundleString.isBlank() || idProdottoString.isBlank() || quantitaString.isBlank()) {
+
+	                        response.sendRedirect(request.getContextPath() + "/admin");
+	                        return;
+                    }
+
+                    int idBundle = Integer.parseInt(idBundleString);
+                    int idProdotto = Integer.parseInt(idProdottoString);
+                    int quantita = Integer.parseInt(quantitaString);
 
                     dao.doAddProdottoBundle(idBundle, idProdotto, quantita);
 
                     response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + idBundle);
-
                     return;
                 }
                 case "rimuoviBundle": {
 
-                    int idBundle = Integer.parseInt(request.getParameter("idBundle"));
-                    int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+                    String idBundleString = request.getParameter("idBundle");
+                    String idProdottoString = request.getParameter("idProdotto");
+
+                    if (idBundleString == null || idProdottoString == null ||
+                        idBundleString.isBlank() || idProdottoString.isBlank()) {
+
+                        response.sendRedirect(request.getContextPath() + "/admin");
+                        return;
+                    }
+
+                    int idBundle = Integer.parseInt(idBundleString);
+                    int idProdotto = Integer.parseInt(idProdottoString);
 
                     dao.doRemoveProdottoBundle(idBundle, idProdotto);
 
                     response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + idBundle);
+                    return;
+                }
+                case "aggiungiAbbinamento": {
 
+                    String id1String = request.getParameter("idProdotto1");
+                    String id2String = request.getParameter("idProdotto2");
+
+                    if (id1String == null || id2String == null ||
+                        id1String.isBlank() || id2String.isBlank()) {
+
+                        response.sendRedirect(request.getContextPath() + "/admin");
+                        return;
+                    }
+
+                    int id1 = Integer.parseInt(id1String);
+                    int id2 = Integer.parseInt(id2String);
+
+                    if (id1 == id2) {
+                        response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + id1);
+                        return;
+                    }
+
+                    AbbinamentoDao daoA = new AbbinamentoDaoImpl();
+                    daoA.doSave(id1, id2);
+
+                    response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + id1);
+                    return;
+                }
+                case "rimuoviAbbinamento": {
+
+                    String id1String = request.getParameter("idProdotto1");
+                    String id2String = request.getParameter("idProdotto2");
+                    String ritornaAString = request.getParameter("ritornaA");
+
+                    if (id1String == null || id2String == null || ritornaAString == null ||
+                        id1String.isBlank() || id2String.isBlank() || ritornaAString.isBlank() ) {
+
+                        response.sendRedirect(request.getContextPath() + "/admin");
+                        return;
+                    }
+
+                    int id1 = Integer.parseInt(id1String);
+                    int id2 = Integer.parseInt(id2String);
+                    int ritornaA = Integer.parseInt(ritornaAString);
+                    
+                    System.out.print("ritorna a: " + ritornaA);
+
+                    
+
+                    try {
+                        AbbinamentoDao daoA = new AbbinamentoDaoImpl();
+                        daoA.doDelete(id1, id2);
+
+                    } catch (SQLException e) {
+                        throw new ServletException("Errore eliminazione abbinamento", e);
+                    }
+
+                    // ritorno alla pagina modifica prodotto
+                    response.sendRedirect( request.getContextPath() + "/admin?azione=modifica&id=" + ritornaA);
                     return;
                 }
 

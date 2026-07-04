@@ -4,15 +4,10 @@
 <html>
 	
 	<head>
-		
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
 		<title>Login</title>
-		
-		<link rel="stylesheet"
-		      href="${pageContext.request.contextPath}/styles/style.css">
-	
+		<link rel="stylesheet"href="${pageContext.request.contextPath}/styles/style.css">
 	</head>
 	
 	<body>
@@ -73,11 +68,9 @@
 		            String errore = (String) request.getAttribute("errore");
 		            if (errore != null) {
 		        %>
-		
 		            <div class="errore">
 		                <p><%= errore %></p>
 		            </div>
-		
 		        <%
 		            }
 		        %>

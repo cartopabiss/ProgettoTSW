@@ -99,9 +99,9 @@ VALUES
 (3, 6, 1);	
 
 query creazione utente/admin:
-
 INSERT INTO Admin (email, password_hash)
 VALUES (
     'admin@admin.it',
     '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
 );
+

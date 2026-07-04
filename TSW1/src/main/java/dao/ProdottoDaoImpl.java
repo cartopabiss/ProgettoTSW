@@ -291,15 +291,41 @@ public class ProdottoDaoImpl implements ProdottoDao {
             ps.executeUpdate();
         }
     }
-    public synchronized void doAddAbbinamento(int idProdotto1, int idProdotto2) {
-    	//da fare
+    public synchronized void doAddAbbinamento(int idProdotto1, int idProdotto2) throws SQLException {
+
+        String sql = "INSERT INTO Abbinamento (id_prodotto1, id_prodotto2) VALUES (?, ?)";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+        	
+        	if (idProdotto1 > idProdotto2) {
+                int tmp = idProdotto1;
+                idProdotto1 = idProdotto2;
+                idProdotto2 = tmp;
+            }
+
+            ps.setInt(1, idProdotto1);
+            ps.setInt(2, idProdotto2);
+
+            ps.executeUpdate();
+        }
     }
-    public synchronized void doRemoveAbbinamento(int idProdotto1, int idProdotto2) {
-    	//da fare
+    public synchronized void doRemoveAbbinamento(int idProdotto1, int idProdotto2) throws SQLException {
+
+        String sql = "DELETE FROM Abbinamento WHERE id_prodotto1 = ? AND id_prodotto2 = ?";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idProdotto1);
+            ps.setInt(2, idProdotto2);
+
+            ps.executeUpdate();
+        }
     }
 
     private ProdottoBean mapRow(ResultSet rs) throws SQLException {
-
+    	
         ProdottoBean prodotto = new ProdottoBean();
 
         prodotto.setIdProdotto(rs.getInt("id_prodotto"));
