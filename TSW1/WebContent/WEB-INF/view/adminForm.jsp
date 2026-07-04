@@ -2,7 +2,6 @@
 <%@ page import="model.ProdottoBean"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="model.BundleProdottoBean"%>
-
 <%@ page import="model.AbbinamentoBean"%>
 
 
@@ -52,7 +51,7 @@
 					<%} %>
 				</h3>
 				
-				<form action="${pageContext.request.contextPath}/admin" method="post" class="form-admin">
+				<form action="${pageContext.request.contextPath}/admin" method="post" class="form-admin" enctype="multipart/form-data">
 				
 				    <input type="hidden" name="azione" value="<%= formAction %>">
 				
@@ -99,9 +98,17 @@
 				
 				    <label>Immagine</label>
 				
-				    <input type="text" name="immagine"
+				    <!-- <input type="text" name="immagine"
 				           value="<%= prodotto.getImmagine() == null ? "" : prodotto.getImmagine() %>" required>
-				
+				           
+				     -->
+				           
+				    <% if (formAction.equals("aggiungi")){ %>
+				    	<input type="file" name="immagine" accept="image/*" required>
+					<% } else { %>
+						<img src="${pageContext.request.contextPath}/images/<%= prodotto.getImmagine() %>" width="150">
+						<input type="file" name="immagine" accept="image/*" >
+					<% }%>
 				    <label>Quantità in magazzino</label>
 				
 				    <input type="number" min="0" name="quantitaMagazzino"

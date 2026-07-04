@@ -1,17 +1,21 @@
 package control;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
 
 import dao.ProdottoDao;
 import dao.ProdottoDaoImpl;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import model.AbbinamentoBean;
 import model.AdminBean;
 import model.ProdottoBean;
@@ -19,6 +23,7 @@ import dao.AbbinamentoDaoImpl;
 import dao.AbbinamentoDao;
 
 @WebServlet("/admin")
+@MultipartConfig
 public class AdminServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -127,7 +132,8 @@ public class AdminServlet extends HttpServlet {
                     String descrizione = request.getParameter("descrizione");
                     String prezzoString = request.getParameter("prezzo");
                     String categoria = request.getParameter("categoria");
-                    String immagine = request.getParameter("immagine");
+                    Part filePart = request.getPart("immagine");
+                    String immagine = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     String quantitaString = request.getParameter("quantitaMagazzino");
 
                     if (nome == null || nome.isBlank() ||
@@ -144,7 +150,16 @@ public class AdminServlet extends HttpServlet {
                     prodotto.setDescrizione(descrizione);
                     prodotto.setPrezzo(Double.parseDouble(prezzoString));
                     prodotto.setCategoria(categoria);
-                    prodotto.setImmagine(immagine.trim());
+                    
+                    String uploadPath = getServletContext().getRealPath("/images");
+                    System.out.println(uploadPath);
+                    filePart.write( uploadPath + File.separator + immagine );
+                    File file = new File(uploadPath, immagine);
+
+                    System.out.println("Esiste? " + file.exists());
+                    System.out.println(file.getAbsolutePath());
+                    
+                    prodotto.setImmagine(immagine);
                     prodotto.setQuantitaMagazzino(Integer.parseInt(quantitaString));
                     prodotto.setAttivo(true);
 
@@ -160,14 +175,15 @@ public class AdminServlet extends HttpServlet {
                     String descrizione = request.getParameter("descrizione");
                     String prezzoString = request.getParameter("prezzo");
                     String categoria = request.getParameter("categoria");
-                    String immagine = request.getParameter("immagine");
+                    Part filePart = request.getPart("immagine");
+                    String immagine = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     String quantitaString = request.getParameter("quantitaMagazzino");
 
                     if (idString == null || idString.isBlank() ||
                         nome == null || nome.isBlank() ||
                         prezzoString == null || prezzoString.isBlank() ||
                         categoria == null || categoria.isBlank() ||
-                        immagine == null || immagine.isBlank() ||
+                        //immagine == null || immagine.isBlank() ||
                         quantitaString == null || quantitaString.isBlank()) {
                     	response.sendRedirect(request.getContextPath() + "/admin?azione=modifica&id=" + idString);
 	                    return;
@@ -179,7 +195,36 @@ public class AdminServlet extends HttpServlet {
                     prodotto.setDescrizione(descrizione);
                     prodotto.setPrezzo(Double.parseDouble(prezzoString));
                     prodotto.setCategoria(categoria);
-                    prodotto.setImmagine(immagine.trim());
+                    
+                    ProdottoBean vecchio = dao.doRetrieveByKey(Integer.parseInt(idString));
+
+                    if (filePart.getSize() > 0) {
+
+                        String uploadPath = getServletContext().getRealPath("/images");
+
+                        // elimina la vecchia immagine (facoltativo)
+                        if (vecchio.getImmagine() != null && !vecchio.getImmagine().isBlank()) {
+
+                            File fileVecchio = new File(uploadPath, vecchio.getImmagine());
+
+                            if (fileVecchio.exists()) {
+                                fileVecchio.delete();
+                            }
+                        }
+
+                        // salva la nuova imm
+                        filePart.write(uploadPath + File.separator + immagine);
+
+                        prodotto.setImmagine(immagine);
+
+                    } else {
+
+                        // mantieni quella precedente
+                        prodotto.setImmagine(vecchio.getImmagine());
+                    }
+                    
+                     
+                    
                     prodotto.setQuantitaMagazzino(Integer.parseInt(quantitaString));
 
                     dao.doUpdate(prodotto);
