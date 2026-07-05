@@ -159,7 +159,7 @@
 		    <% if (utente != null) { %>
 		
 		        <div class="checkout-box">
-		
+					<hr>
 		            <h3>Completa l'acquisto</h3>
 		
 		            <form action="${pageContext.request.contextPath}/checkout" method="post">
@@ -171,7 +171,6 @@
 		                <select name="metodoPagamento" required>
 		                    <option value="carta">Carta di credito</option>
 		                    <option value="paypal">PayPal</option>
-		                    <option value="contrassegno">Contrassegno</option>
 		                </select>
 		
 		                <button type="submit">
@@ -179,7 +178,7 @@
 		                </button>
 		
 		            </form>
-		
+					<hr>
 		        </div>
 		
 		    <% } else { %>
@@ -189,14 +188,14 @@
 		        </p>
 		
 		        <a href="${pageContext.request.contextPath}/login">
-		            Vai al login
+		            <button>Vai al login</button>
 		        </a>
 		
 		    <% } %>
 		
 		    <div class="continua-shopping">
 		        <a href="${pageContext.request.contextPath}/catalogo">
-		            Continua lo shopping
+		            <button>Continua lo shopping</button>
 		        </a>
 		    </div>
 		

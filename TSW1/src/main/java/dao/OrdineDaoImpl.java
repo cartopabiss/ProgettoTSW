@@ -174,6 +174,7 @@ public class OrdineDaoImpl implements OrdineDao{
                         ordine = new OrdineBean();
 
                         ordine.setIdOrdine(rs.getInt("id_ordine"));
+                        ordine.setIdUtente(rs.getInt("id_utente"));
                         ordine.setTotale(rs.getDouble("totale"));
                         ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
                         ordine.setIndirizzoSpedizione(rs.getString("indirizzo_spedizione"));

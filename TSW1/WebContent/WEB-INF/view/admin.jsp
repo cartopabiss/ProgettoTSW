@@ -37,7 +37,7 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 		    <p>
 		
 		        <a class="bottone-admin" href="${pageContext.request.contextPath}/admin?azione=nuovo">
-		            + Aggiungi prodotto
+		            <button>+ Aggiungi prodotto</button>
 		        </a>
 		
 		    </p>
@@ -78,9 +78,7 @@ Collection<ProdottoBean> prodotti = (Collection<ProdottoBean>) request.getAttrib
 		            </td>
 		
 		            <td>
-		                <a class="bottone-admin" href="${pageContext.request.contextPath}/admin?azione=modifica&id=<%= prodotto.getIdProdotto() %>">
-		                    Modifica
-		                </a>
+		                <a class="bottone-admin" href="${pageContext.request.contextPath}/admin?azione=modifica&id=<%= prodotto.getIdProdotto() %>"> <button>Modifica</button></a>
 		
 		                <form action="${pageContext.request.contextPath}/admin" method="post" style="display:inline;">
 		

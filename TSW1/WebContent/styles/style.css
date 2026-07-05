@@ -475,6 +475,10 @@ a {
     width: 90%;
     margin: 30px auto;
 }
+.bottone-admin button {
+	padding: 6px 12px;
+  	margin: 20px 2px;
+}
 .contenitore-admin::after{
     content:"";
     display:block;

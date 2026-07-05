@@ -84,11 +84,11 @@
 		    <div class="azioni-ordine">
 		
 		        <a href="${pageContext.request.contextPath}/catalogo">
-		            Continua lo shopping
+		            <button>Continua lo shopping</button>
 		        </a>
 		
 		        <a href="${pageContext.request.contextPath}/profilo">
-		            Vai al profilo
+		            <button>Vai al profilo</button>
 		        </a>
 		
 		    </div>
