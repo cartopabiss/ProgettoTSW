@@ -202,7 +202,7 @@ public class AdminServlet extends HttpServlet {
 
                         String uploadPath = getServletContext().getRealPath("/images");
 
-                        // elimina la vecchia immagine (facoltativo)
+                        // elimina la vecchia immagine 
                         if (vecchio.getImmagine() != null && !vecchio.getImmagine().isBlank()) {
 
                             File fileVecchio = new File(uploadPath, vecchio.getImmagine());
