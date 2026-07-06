@@ -72,15 +72,12 @@ public class LoginServlet extends HttpServlet {
             if (utente != null && utente.getPasswordHash().equals(hashInserita)) {
 
                 HttpSession session = request.getSession();
-
                 session.setAttribute("utente", utente);
-
                 response.sendRedirect(request.getContextPath() + "/home");
                 return;
             }
 
             //se non è un utente verifico che sia un admin
-
             AdminDao adminDao = new AdminDaoImpl();
             AdminBean admin = adminDao.doRetrieveByEmail(email.trim());
 
@@ -96,8 +93,9 @@ public class LoginServlet extends HttpServlet {
             doGet(request, response);
 
         } catch (SQLException e) {
-
+        	e.printStackTrace();
             throw new ServletException( "Errore durante il login", e);
+            
         }
     }
 }

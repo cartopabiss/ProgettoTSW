@@ -44,36 +44,25 @@
 		
 		        <h2>Login</h2>
 		
-		
 		        <label for="email">Email</label>
-		
 		        <input type="email" id="email" name="email">
-		
 		        <div id="erroreEmail" class="errore"></div>
 		
-		
 		        <label for="password">Password</label>
-		
 		        <input type="password" id="password" name="password">
-		
 		        <div id="errorePassword" class="errore"></div>
-		
 		
 		        <button type="submit">
 		            Accedi
 		        </button>
 		
 		
-		        <%
-		            String errore = (String) request.getAttribute("errore");
-		            if (errore != null) {
-		        %>
+		        <% String errore = (String) request.getAttribute("errore");
+		            if (errore != null) { %>
 		            <div class="errore">
 		                <p><%= errore %></p>
 		            </div>
-		        <%
-		            }
-		        %>
+		        <% } %>
 		
 		
 		        <p class="testo-registrazione">
@@ -85,9 +74,7 @@
 		            </a>
 		
 		        </p>
-		
 		    </form>
-		
 		</main>
 		
 		
@@ -133,7 +120,7 @@
 			
 			function validaEmail() {
 			
-			    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regular expression
+			    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 			
 			    if (email.value.trim() === "") {
 			
@@ -164,7 +151,5 @@
 			}
 			
 		</script>
-	
 	</body>
-
 </html>

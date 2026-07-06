@@ -97,11 +97,6 @@
 				    </select>
 				
 				    <label>Immagine</label>
-				
-				    <!-- <input type="text" name="immagine"
-				           value="<%= prodotto.getImmagine() == null ? "" : prodotto.getImmagine() %>" required>
-				           
-				     -->
 				           
 				    <% if (formAction.equals("aggiungi")){ %>
 				    	<input type="file" name="immagine" accept="image/*" required>
@@ -139,20 +134,15 @@
 					
 					        <select name="idProdotto2">
 					
-					            <%
-					                
-					                if (nonAbbinati != null) {
-					                    for (ProdottoBean p : nonAbbinati) {
-					            %>
+					            <% if (nonAbbinati != null) {
+					                    for (ProdottoBean p : nonAbbinati) { %>
 					
 					                <option value="<%= p.getIdProdotto() %>">
 					                    <%= p.getNome() %>
 					                </option>
 					
-					            <%
-					                    }
-					                }
-					            %>
+					            		<% }
+					             } %>
 					
 					        </select>
 					        <button type="submit">Aggiungi abbinamento</button>
@@ -219,19 +209,9 @@
 					            </tr>
 					
 					            <% } %>
-					
 					        </table>
-					
-					    <%
-					        }
-					    %>
-					
+					    <% } %>
 					<% } %>
-					
-					
-					
-					
-					
 					
 				<% if (formAction.equals("modifica") && "BUNDLE".equals(prodotto.getCategoria())) { %>	
 				    	<hr>
@@ -256,13 +236,11 @@
 						    </select>
 						
 						    <label>Quantità</label>
-						
 						    <input type="number" name="quantita" value="1" min="1">
 						
 						    <button type="submit"> Aggiungi </button>
 						
 						</form>
-						
 						<br>
 				
 				    <h3>Componenti del bundle</h3>	
@@ -315,6 +293,36 @@
 		..................
 		
 		</footer>
-	
+		
+		<script>
+
+		    const form = document.querySelector(".form-admin");
+		
+		    form.addEventListener("submit", function (e) {
+		
+		        const nome = form.nome.value.trim();
+		        const prezzo = form.prezzo.value;
+		        const quantita = form.quantitaMagazzino.value;
+		
+		        let errors = [];
+		
+		        if (nome.length < 2) {
+		            errors.push("Il nome deve avere almeno 2 caratteri");
+		        }
+		
+		        if (prezzo <= 0) {
+		            errors.push("Il prezzo deve essere maggiore di 0");
+		        }
+		
+		        if (quantita < 0) {
+		            errors.push("La quantità non può essere negativa");
+		        }
+		
+		        if (errors.length > 0) {
+		            e.preventDefault();
+		            alert(errors.join("\n"));
+		        }
+		    });
+		</script>
 	</body>
 </html>

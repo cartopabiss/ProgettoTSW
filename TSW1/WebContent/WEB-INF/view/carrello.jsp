@@ -105,8 +105,7 @@
 		                    <input type="hidden" name="azione" value="aggiorna">
 		                    <input type="hidden" name="id" value="<%= riga.getProdotto().getIdProdotto() %>">
 		
-		                    <input type="number" name="quantita"
-		                           min="1"
+		                    <input type="number" name="quantita" min="1"
 		                           max="<%= riga.getProdotto().getQuantitaMagazzino() %>"
 		                           value="<%= riga.getQuantita() %>">
 		
@@ -117,7 +116,7 @@
 		            </td>
 		
 		            <td>
-		                € <%= String.format("%.2f", riga.getSubtotale()) %>
+		                &euro; <%= String.format("%.2f", riga.getSubtotale()) %>
 		            </td>
 		
 		            <td>
@@ -146,7 +145,7 @@
 		    <div class="carrello-riepilogo">
 		
 		        <h3>
-		            Totale: € <%= String.format("%.2f", carrello.getTotale()) %>
+		            Totale: &euro; <%= String.format("%.2f", carrello.getTotale()) %>
 		        </h3>
 		
 		        <form action="${pageContext.request.contextPath}/carrello" method="post">
@@ -155,31 +154,38 @@
 		        </form>
 		
 		    </div>
+		    
+		    <hr>
 		
 		    <% if (utente != null) { %>
 		
-		        <div class="checkout-box">
-					<hr>
-		            <h3>Completa l'acquisto</h3>
-		
-		            <form action="${pageContext.request.contextPath}/checkout" method="post">
-		
-		                <label>Indirizzo spedizione</label>
-		                <input type="text" name="indirizzo" required>
-		
-		                <label>Metodo pagamento</label>
-		                <select name="metodoPagamento" required>
-		                    <option value="carta">Carta di credito</option>
-		                    <option value="paypal">PayPal</option>
-		                </select>
-		
-		                <button type="submit">
-		                    Procedi all'acquisto
-		                </button>
-		
-		            </form>
-					<hr>
-		        </div>
+		        <form id="checkoutForm" action="${pageContext.request.contextPath}/checkout" method="post">
+			
+				    <label>Indirizzo spedizione</label>
+				    <input type="text" name="indirizzo" id="indirizzo" required>
+				
+				    <label>Metodo pagamento</label>
+				    <select name="metodoPagamento" id="metodoPagamento" required>
+					    <option value="" disabled selected hidden>seleziona</option>
+					
+					    <option value="carta">Carta di credito</option>
+					    <option value="paypal" selected>PayPal</option>
+					</select>
+				
+				    <div id="carta" style="display:none; margin-top:10px;">
+				        <label>Numero carta</label>
+				        <input type="text" id="numeroCarta" maxlength="16">
+						
+						<label>scadenza</label>
+				        <input type="text" id="scadenzaCarta" placeholder="MM/AAAA" maxlength="7">
+				
+				        <label>CVV</label>
+				        <input type="text" id="cvv" maxlength="3">
+				    </div>
+				
+				    <button type="submit">Procedi all'acquisto</button>
+			
+				</form>
 		
 		    <% } else { %>
 		
@@ -192,6 +198,8 @@
 		        </a>
 		
 		    <% } %>
+		    
+		    <hr>
 		
 		    <div class="continua-shopping">
 		        <a href="${pageContext.request.contextPath}/catalogo">
@@ -208,6 +216,68 @@
 		<footer class="footer">
 		    ......................
 		</footer>
+		
+	<script>
+	
+	    const metodo = document.getElementById("metodoPagamento");
+	    const cartaBox = document.getElementById("carta");
+	    const form = document.getElementById("checkoutForm");
+	
+	    const indirizzo = document.getElementById("indirizzo");
+	    const numeroCarta = document.getElementById("numeroCarta");
+	    const cvv = document.getElementById("cvv");
+	    const scad = document.getElementById("scad");
+	    
+	    document.addEventListener("DOMContentLoaded", function () {
+	        document.getElementById("metodoPagamento").selectedIndex = 0;
+	    });
+	
+	    // mostra/nasconde campi carta
+	    metodo.addEventListener("change", function () {
+	
+	        if (this.value === "carta") {
+	            cartaBox.style.display = "block";
+	        } else {
+	            cartaBox.style.display = "none";
+	        }
+	
+	    });
+	
+	    // validazione submit
+	    form.addEventListener("submit", function (e) {
+	
+	        let errors = [];
+	
+	        // indirizzo
+	        if (indirizzo.value.trim().length < 5) {
+	            errors.push("Indirizzo troppo corto");
+	        }
+	
+	        // carta obbligatoria solo se selezionata
+	        if (metodo.value === "carta") {
+	
+	            if (!/^\d{16}$/.test(numeroCarta.value)) {
+	                
+	            }
+	
+	            if (!/^\d{3}$/.test(cvv.value)) {
+	                errors.push("CVV non valido (3 cifre)");
+	            }
+	            if (/^(0[1-9]|1[0-2])\/\d{4}$/.test(scad.value)){
+	            	errors.push("Numero carta non valido (16 cifre)");
+	            }
+	        }
+	
+	        if (metodo.value == "") {
+	            errors.push("Seleziona un metodo di pagamento");
+	        }
+	
+	        if (errors.length > 0) {
+	            e.preventDefault();
+	            alert(errors.join("\n"));
+	        }
+	    });
+	</script>
 	
 	</body>
 </html>
