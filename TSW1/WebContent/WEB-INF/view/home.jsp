@@ -62,7 +62,7 @@
 	
 	        <section class="presentazione">
 	            <p class="testo-intro">
-	                //presentazione
+	                presentazione del sito
 	            </p>
 	
 	            <div class="categoria">
@@ -104,7 +104,6 @@
 		            </a>
 		      	<% } %>
 	        </aside>
-	
 	    </main>
 	
 	    <footer class="footer">

@@ -39,11 +39,8 @@ public class CatalogoServlet extends HttpServlet {
         }
 
         try {
-
             ProdottoDao dao = new ProdottoDaoImpl();// istanziato per poter usarne la proprietà doRetrieve
-
             Collection<ProdottoBean> prodotti = dao.doRetrieveByFiltri(nome, categoria, ordine);
-
             request.setAttribute("prodotti", prodotti);
 
             request.getRequestDispatcher("/WEB-INF/view/catalogo.jsp").forward(request, response);

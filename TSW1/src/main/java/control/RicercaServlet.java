@@ -19,8 +19,7 @@ public class RicercaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String nome = request.getParameter("nome");
         String categoria = request.getParameter("categoria");
@@ -35,8 +34,7 @@ public class RicercaServlet extends HttpServlet {
         if(ordine == null) {
         	ordine = "nomeASC";
         }
-	
-	        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         try {
 
