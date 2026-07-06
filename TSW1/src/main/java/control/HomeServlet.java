@@ -16,7 +16,7 @@ public class HomeServlet extends HttpServlet {
 	public HomeServlet() {
 		super();
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/home.jsp");

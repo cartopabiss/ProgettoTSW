@@ -23,11 +23,6 @@ public class OrdineServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
         String idString = request.getParameter("id");
 
         if (idString == null || idString.isBlank()) {

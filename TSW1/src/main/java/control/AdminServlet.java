@@ -36,11 +36,6 @@ public class AdminServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("admin") == null) {
-            response.sendRedirect(request.getContextPath() + "/home");
-            return;
-        }
-
         String azione = request.getParameter("azione");
 
         try {
@@ -108,11 +103,6 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("admin") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         String azione = request.getParameter("azione");
 

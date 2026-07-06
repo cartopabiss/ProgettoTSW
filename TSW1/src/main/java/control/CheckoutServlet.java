@@ -28,11 +28,6 @@ public class CheckoutServlet extends HttpServlet {
         UtenteBean utente = (UtenteBean) session.getAttribute("utente");
         CarrelloBean carrello = (CarrelloBean) session.getAttribute("carrello");
 
-        if (utente == null || carrello == null || carrello.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/carrello");
-            return;
-        }
-
         String indirizzo = request.getParameter("indirizzo");
         String metodoPagamento = request.getParameter("metodoPagamento");
 
