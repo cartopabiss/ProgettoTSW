@@ -88,7 +88,6 @@ public class CarrelloServlet extends HttpServlet {
             }
 
             else if(azione.equals("aggiorna")) {
-
                 int id = Integer.parseInt(request.getParameter("id"));
                 int quantita = Integer.parseInt(request.getParameter("quantita"));
                 carrello.aggiornaQuantita(id, quantita);
@@ -98,7 +97,6 @@ public class CarrelloServlet extends HttpServlet {
             else if(azione.equals("svuota")) {
                 carrello.svuota();
             }
-
         }
 
         catch(Exception e) {

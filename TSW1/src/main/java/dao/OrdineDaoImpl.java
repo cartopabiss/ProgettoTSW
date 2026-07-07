@@ -164,7 +164,6 @@ public class OrdineDaoImpl implements OrdineDao{
         try (Connection connection = ds.getConnection()) {
 
             try (PreparedStatement ps = connection.prepareStatement(sqlOrdine)) {
-
                 ps.setInt(1, idOrdine);
 
                 try (ResultSet rs = ps.executeQuery()) {
@@ -206,7 +205,6 @@ public class OrdineDaoImpl implements OrdineDao{
 
                         righe.add(riga);
                     }
-
                     ordine.setRighe(righe);
                 }
             }

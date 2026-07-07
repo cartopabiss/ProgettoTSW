@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class RigaCarrelloBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private ProdottoBean prodotto;
     private int quantita;
 
@@ -15,7 +14,6 @@ public class RigaCarrelloBean implements Serializable {
     public ProdottoBean getProdotto() {
         return prodotto;
     }
-
     public void setProdotto(ProdottoBean prodotto) {
         this.prodotto = prodotto;
     }
@@ -23,7 +21,6 @@ public class RigaCarrelloBean implements Serializable {
     public int getQuantita() {
         return quantita;
     }
-
     public void setQuantita(int quantita) {
         this.quantita = quantita;
     }

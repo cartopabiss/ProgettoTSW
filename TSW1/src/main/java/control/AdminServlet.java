@@ -204,16 +204,12 @@ public class AdminServlet extends HttpServlet {
 
                         // salva la nuova imm
                         filePart.write(uploadPath + File.separator + immagine);
-
                         prodotto.setImmagine(immagine);
 
                     } else {
-
                         // mantieni quella precedente
                         prodotto.setImmagine(vecchio.getImmagine());
                     }
-                    
-                     
                     
                     prodotto.setQuantitaMagazzino(Integer.parseInt(quantitaString));
 
@@ -321,9 +317,7 @@ public class AdminServlet extends HttpServlet {
                     int ritornaA = Integer.parseInt(ritornaAString);
                     
                     System.out.print("ritorna a: " + ritornaA);
-
                     
-
                     try {
                         AbbinamentoDao daoA = new AbbinamentoDaoImpl();
                         daoA.doDelete(id1, id2);

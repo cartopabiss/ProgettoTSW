@@ -49,7 +49,7 @@ public class OrdineServlet extends HttpServlet {
             System.out.println("Utente loggato = " + utente.getIdUtente());
             // L'utente può vedere solo i propri ordini
             if (ordine.getIdUtente() != utente.getIdUtente()) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                response.sendError(HttpServletResponse.SC_FORBIDDEN); // 403
                 return;
             }
 

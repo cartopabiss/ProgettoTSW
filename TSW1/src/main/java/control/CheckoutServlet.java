@@ -33,14 +33,13 @@ public class CheckoutServlet extends HttpServlet {
 
         try {
 
-            int idOrdine = ordineDao.doSave( utente.getIdUtente(), indirizzo, metodoPagamento, carrello);
+            int idOrdine = ordineDao.doSave(utente.getIdUtente(), indirizzo, metodoPagamento, carrello);
 
-            // svuota carrello dopo ordine OK
+            // svuota carrello dopo ordine
             carrello.svuota();
 
-            // da definire pagina di conferma: uso il redirect
+            // da definire pagina di conferma: uso il forward 
             request.setAttribute("idOrdine", idOrdine);
-
             request.setAttribute("ordine", ordineDao.doRetrieveByKey(idOrdine));
 
             request.getRequestDispatcher( "/WEB-INF/view/ordineConfermato.jsp").forward(request, response);

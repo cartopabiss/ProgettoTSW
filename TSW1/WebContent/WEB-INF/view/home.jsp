@@ -67,17 +67,17 @@
 	
 	            <div class="categoria">
 	                <h3>Cappelli</h3>
-	                <p>In lana cotone e nylon.</p>
+	                <p>In cotone, lino e poliestere per l'estate<br>In lana per l'inverno</p>
 	            </div>
 	
 	            <div class="categoria">
 	                <h3>Calzini</h3>
-	                <p>In cotone e lino</p>
+	                <p>In cotone e lino per l'estate<br>In lana e lana merino per l'inverno</p>
 	            </div>
 	
 	            <div class="categoria">
 	                <h3>Bundle</h3>
-	                <p>Pack con prodotti già abbinati.</p>
+	                <p>Bundle di cappelli e calzini già abbinati</p>
 	            </div>
 	        </section>
 	

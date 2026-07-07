@@ -8,7 +8,7 @@
 <%
     ProdottoBean prodotto = (ProdottoBean) request.getAttribute("prodotto");
     String formAction = (String) request.getAttribute("formAction");
-    //prodotti aggiungibili (diversi dal prodotto in considerazione)
+    //prodotti aggiungibili al bundle (diversi dal prodotto in considerazione)
     Collection<ProdottoBean> disponibili = (Collection<ProdottoBean>) request.getAttribute("disponibili");
     //componenti del bundle
     Collection<BundleProdottoBean> componenti = (Collection<BundleProdottoBean>) request.getAttribute("componenti");
@@ -109,13 +109,10 @@
 				    <input type="number" min="0" name="quantitaMagazzino"
 				           value="<%= prodotto.getQuantitaMagazzino() %>" required>
 				
-				
 				    <button type="submit" class="bottone-admin">
-				
 				        <%= formAction.equals("aggiungi") ?
 				                "Aggiungi prodotto" :
 				                "Salva modifiche" %>
-				
 				    </button>
 				</form>
 				</div>
@@ -137,9 +134,9 @@
 					            <% if (nonAbbinati != null) {
 					                    for (ProdottoBean p : nonAbbinati) { %>
 					
-					                <option value="<%= p.getIdProdotto() %>">
-					                    <%= p.getNome() %>
-					                </option>
+							                <option value="<%= p.getIdProdotto() %>">
+							                    <%= p.getNome() %>
+							                </option>
 					
 					            		<% }
 					             } %>
@@ -152,16 +149,11 @@
 					
 					    <h3>Abbinamenti esistenti</h3>
 					
-					    <%
-					
-					        if (abbinamenti == null || abbinamenti.isEmpty()) {
-					    %>
+					    <% if (abbinamenti == null || abbinamenti.isEmpty()) { %>
 					
 					        <p>Nessun abbinamento presente.</p>
 					
-					    <%
-					        } else {
-					    %>
+					    <% } else { %>
 					
 					        <table class="tabella-admin">
 					

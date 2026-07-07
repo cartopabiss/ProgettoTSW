@@ -18,7 +18,6 @@ public class RigaOrdineBean implements Serializable {
     public int getIdRiga() {
         return idRiga;
     }
-
     public void setIdRiga(int idRiga) {
         this.idRiga = idRiga;
     }
@@ -26,7 +25,6 @@ public class RigaOrdineBean implements Serializable {
     public int getIdOrdine() {
         return idOrdine;
     }
-
     public void setIdOrdine(int idOrdine) {
         this.idOrdine = idOrdine;
     }
@@ -34,7 +32,6 @@ public class RigaOrdineBean implements Serializable {
     public Integer getIdProdotto() {
         return idProdotto;
     }
-
     public void setIdProdotto(Integer idProdotto) {
         this.idProdotto = idProdotto;
     }
@@ -42,7 +39,6 @@ public class RigaOrdineBean implements Serializable {
     public String getNomeProdotto() {
         return nomeProdotto;
     }
-
     public void setNomeProdotto(String nomeProdotto) {
         this.nomeProdotto = nomeProdotto;
     }
@@ -50,7 +46,6 @@ public class RigaOrdineBean implements Serializable {
     public double getPrezzoUnitario() {
         return prezzoUnitario;
     }
-
     public void setPrezzoUnitario(double prezzoUnitario) {
         this.prezzoUnitario = prezzoUnitario;
     }
@@ -58,7 +53,6 @@ public class RigaOrdineBean implements Serializable {
     public int getQuantita() {
         return quantita;
     }
-
     public void setQuantita(int quantita) {
         this.quantita = quantita;
     }
@@ -66,7 +60,6 @@ public class RigaOrdineBean implements Serializable {
     public double getSubtotale() {
         return subtotale;
     }
-
     public void setSubtotale(double subtotale) {
         this.subtotale = subtotale;
     }

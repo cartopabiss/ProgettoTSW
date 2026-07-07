@@ -8,13 +8,11 @@ import java.util.Map;
 public class CarrelloBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private final Map<Integer, RigaCarrelloBean> righe;
 
     public CarrelloBean() {
         this.righe = new LinkedHashMap<>();
     }
-
     public Collection<RigaCarrelloBean> getRighe() {
         return righe.values(); //.values() ritorna un lista di oggetti RigaCarrello senza id 
     }
@@ -49,11 +47,9 @@ public class CarrelloBean implements Serializable {
 
     public void aggiornaQuantita(int idProdotto, int quantita) {
         RigaCarrelloBean riga = righe.get(idProdotto);
-
         if (riga == null) {
             return;
         }
-
         if (quantita <= 0) {
             righe.remove(idProdotto);
         } else {
@@ -64,7 +60,6 @@ public class CarrelloBean implements Serializable {
     public void rimuoviProdotto(int idProdotto) {
         righe.remove(idProdotto);
     }
-
     public void svuota() {
         righe.clear();
     }

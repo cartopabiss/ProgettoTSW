@@ -46,10 +46,7 @@
 		
 		    <h2>Ordine confermato</h2>
 		
-		
-		    <%
-		        if (ordine != null) {
-		    %>
+		    <% if (ordine != null) { %>
 		
 		        <div class="box-ordine">
 		
@@ -63,9 +60,7 @@
 		
 		        </div>
 		
-		    <%
-		        } else if (idOrdine != null) {
-		    %>
+		    <% } else if (idOrdine != null) { %>
 		
 		        <div class="box-ordine">
 		
@@ -77,9 +72,7 @@
 		
 		        </div>
 		
-		    <%
-		        }
-		    %>
+		    <% } %>
 		
 		    <div class="azioni-ordine">
 		

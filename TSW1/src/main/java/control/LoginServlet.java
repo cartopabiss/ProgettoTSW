@@ -1,4 +1,4 @@
-	package control;
+package control;
 	
 	import java.io.IOException;
 	import java.sql.SQLException;
@@ -40,7 +40,7 @@
 	
 	        if (email == null || password == null || email.isBlank() || password.isBlank()) {
 	
-	            request.setAttribute( "errore", "Inserisci email e password.");
+	            request.setAttribute("errore", "Inserisci email e password.");
 	            doGet(request, response);//redirect alla pagina di login
 	            return;
 	        }
@@ -57,7 +57,7 @@
 	
 	                HttpSession session = request.getSession();
 	                session.setAttribute("utente", utente);
-	                response.sendRedirect(request.getContextPath() + "/home");
+	                response.sendRedirect(request.getContextPath() + "/profilo");
 	                return;
 	            }
 	

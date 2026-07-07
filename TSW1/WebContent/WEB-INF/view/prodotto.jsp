@@ -13,17 +13,11 @@
 
 <!DOCTYPE html>
 <html>
-	
 	<head>
-	
 	    <meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
 	    <title><%= prodotto.getNome() %></title>
-	
-	    <link rel="stylesheet"
-	          href="${pageContext.request.contextPath}/styles/style.css">
-	
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
 	</head>
 	
 	<body>
@@ -41,7 +35,6 @@
 		        <a href="${pageContext.request.contextPath}/home">
 		            Home
 		        </a>
-		
 		        <a href="${pageContext.request.contextPath}/catalogo">
 		            Catalogo
 		        </a>
@@ -70,8 +63,7 @@
 		
 		    <div class="prodotto-dettaglio-immagine">
 		
-		        <img src="${pageContext.request.contextPath}/images/<%= prodotto.getImmagine() %>"
-		             alt="<%= prodotto.getNome() %>">
+		        <img src="${pageContext.request.contextPath}/images/<%= prodotto.getImmagine() %>" alt="<%= prodotto.getNome() %>">
 		
 		    </div>
 		
@@ -79,9 +71,7 @@
 		
 		        <h2><%= prodotto.getNome() %></h2>
 		
-		        <p>
-		            <%= prodotto.getDescrizione() %>
-		        </p>
+		        <p> <%= prodotto.getDescrizione() %> </p>
 		
 		        <p>
 		            <strong>Categoria:</strong>
@@ -153,11 +143,9 @@
 		            <p class="errore">
 		                Prodotto non disponibile.
 		            </p>
-		
+		            
 		        <% } %>
-		
 		    </div>
-		
 		</main>
 		
 		<% if(correlati != null && !correlati.isEmpty()) { %>
@@ -189,19 +177,14 @@
 		                </a>
 		
 		            </div>
-		
 		        <% } %>
-		
 		    </div>
-		
 		</section>
 		
 		<% } %>
 		
 		<footer class="footer">
-		
 		    ......................
-		
 		</footer>
 	
 	</body>

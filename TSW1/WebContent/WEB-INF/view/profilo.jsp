@@ -18,7 +18,6 @@ UtenteBean utente = (UtenteBean) session.getAttribute("utente");
 	</head>
 	
 	<body>
-			
 			<header class="header">
 			
 			    <h1 class="logo">
@@ -49,8 +48,6 @@ UtenteBean utente = (UtenteBean) session.getAttribute("utente");
 			
 			    <div>
 			    	<h2>Profilo</h2>
-			    
-			
 				    <p>Nome: <%= utente.getNome() %></p>
 				
 				    <p>Cognome: <%= utente.getCognome() %></p>
@@ -68,7 +65,6 @@ UtenteBean utente = (UtenteBean) session.getAttribute("utente");
 				    </a>
 			    </div>
 			    
-				
 				<hr>
 				
 				<h2>I miei ordini</h2>
